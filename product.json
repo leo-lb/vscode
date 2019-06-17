@@ -22,5 +22,6 @@
 	"urlProtocol": "code-oss",
 	"extensionAllowedProposedApi": [
 		"ms-vscode.references-view"
-	]
+	],
+  "electronRepository": "leo-lb/electron"
 }
