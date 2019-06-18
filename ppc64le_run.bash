@@ -13,7 +13,7 @@ if [[ "$ELECTRON_BUILD_DIR" == "" ]]; then
   VERSION="4.2.4"
 	PLATFORM="linux-ppc64"
 
-	if ! [[ -f "electron-v$VERSION-$PLATFORM.zip" ]];
+	if ! [[ -f "electron-v$VERSION-$PLATFORM.zip" ]]; then
     wget "https://github.com/leo-lb/electron/releases/download/v$VERSION/electron-v$VERSION-$PLATFORM.zip"
   fi
 
