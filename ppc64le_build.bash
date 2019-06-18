@@ -1,7 +1,12 @@
 #!/bin/bash
 
+echo "#############################"
+echo "#############################"	
 echo "VSCode needs few dependencies to compile, make sure you install those if anything fails."
 echo "See https://github.com/Microsoft/vscode/wiki/How-to-Contribute#prerequisites"
+echo "#############################"
+echo "#############################"
+echo
 
 set -eux
 
