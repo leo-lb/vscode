@@ -22,4 +22,4 @@ if [[ "$ELECTRON_BUILD_DIR" == "" ]]; then
 	ELECTRON_BUILD_DIR=$(pwd)/electron-build
 fi
 
-./$ELECTRON_BUILD_DIR/electron .
+$ELECTRON_BUILD_DIR/electron .
