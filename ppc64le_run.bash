@@ -13,10 +13,13 @@ if [[ "$ELECTRON_BUILD_DIR" == "" ]]; then
   VERSION="4.2.4"
 	PLATFORM="linux-ppc64"
 
-	wget "https://github.com/leo-lb/electron/releases/download/v$VERSION/electron-v$VERSION-$PLATFORM.zip"
-	mkdir -p electron-build
+	if ! [[ -f "electron-v$VERSION-$PLATFORM.zip" ]];
+    wget "https://github.com/leo-lb/electron/releases/download/v$VERSION/electron-v$VERSION-$PLATFORM.zip"
+  fi
+
+  mkdir -p electron-build
 	cd electron-build
-	unzip ../electron-v$VERSION-$PLATFORM.zip
+	! [ -f ./electron ] && unzip ../electron-v$VERSION-$PLATFORM.zip
 	cd ../
 
 	ELECTRON_BUILD_DIR=$(pwd)/electron-build
