@@ -20,6 +20,8 @@ import 'vs/workbench/electron-browser/main';
 //#region --- workbench actions
 
 import 'vs/workbench/browser/actions/layoutActions';
+import 'vs/workbench/browser/actions/windowActions';
+import 'vs/workbench/browser/actions/developerActions';
 import 'vs/workbench/browser/actions/listCommands';
 import 'vs/workbench/browser/actions/navigationActions';
 import 'vs/workbench/browser/parts/quickopen/quickOpenActions';
@@ -89,8 +91,6 @@ import { IURLService } from 'vs/platform/url/common/url';
 import { RelayURLService } from 'vs/platform/url/electron-browser/urlService';
 import { ITunnelService } from 'vs/platform/remote/common/tunnel';
 import { TunnelService } from 'vs/workbench/services/remote/node/tunnelService';
-import { ConfigurationResolverService } from 'vs/workbench/services/configurationResolver/electron-browser/configurationResolverService';
-import { IConfigurationResolverService } from 'vs/workbench/services/configurationResolver/common/configurationResolver';
 import { ICredentialsService } from 'vs/platform/credentials/common/credentials';
 import { KeytarCredentialsService } from 'vs/platform/credentials/node/credentialsService';
 
@@ -135,6 +135,7 @@ import 'vs/workbench/services/remote/electron-browser/remoteAgentServiceImpl';
 import 'vs/workbench/services/notification/common/notificationService';
 import 'vs/workbench/services/window/electron-browser/windowService';
 import 'vs/workbench/services/telemetry/electron-browser/telemetryService';
+import 'vs/workbench/services/configurationResolver/electron-browser/configurationResolverService';
 
 registerSingleton(IMenuService, MenuService, true);
 registerSingleton(IListService, ListService, true);
@@ -162,7 +163,6 @@ registerSingleton(IWorkspacesService, WorkspacesService);
 registerSingleton(IMenubarService, MenubarService);
 registerSingleton(IURLService, RelayURLService);
 registerSingleton(ITunnelService, TunnelService, true);
-registerSingleton(IConfigurationResolverService, ConfigurationResolverService, true);
 registerSingleton(ICredentialsService, KeytarCredentialsService, true);
 
 //#endregion
@@ -202,6 +202,7 @@ registerSingleton(IPreferencesSearchService, PreferencesSearchService, true);
 
 // Logs
 import 'vs/workbench/contrib/logs/common/logs.contribution';
+import 'vs/workbench/contrib/logs/electron-browser/logs.contribution';
 
 // Quick Open Handlers
 import 'vs/workbench/contrib/quickopen/browser/quickopen.contribution';
@@ -215,7 +216,7 @@ import 'vs/workbench/contrib/files/browser/files.contribution';
 import 'vs/workbench/contrib/backup/common/backup.contribution';
 
 // Stats
-import 'vs/workbench/contrib/stats/node/stats.contribution';
+import 'vs/workbench/contrib/stats/electron-browser/stats.contribution';
 
 // Rapid Render Splash
 import 'vs/workbench/contrib/splash/electron-browser/partsSplash.contribution';
@@ -230,11 +231,12 @@ import 'vs/workbench/contrib/scm/browser/scm.contribution';
 import 'vs/workbench/contrib/scm/browser/scmViewlet';
 
 // Debug
-import 'vs/workbench/contrib/debug/electron-browser/debug.contribution';
+import 'vs/workbench/contrib/debug/browser/debug.contribution';
 import 'vs/workbench/contrib/debug/browser/debugQuickOpen';
 import 'vs/workbench/contrib/debug/browser/debugEditorContribution';
 import 'vs/workbench/contrib/debug/browser/repl';
 import 'vs/workbench/contrib/debug/browser/debugViewlet';
+import 'vs/workbench/contrib/debug/node/debugHelperService';
 
 // Markers
 import 'vs/workbench/contrib/markers/browser/markers.contribution';
@@ -268,9 +270,13 @@ import 'vs/workbench/contrib/terminal/browser/terminalPanel';
 import 'vs/workbench/contrib/relauncher/electron-browser/relauncher.contribution';
 
 // Tasks
-import 'vs/workbench/contrib/tasks/electron-browser/task.contribution';
+import 'vs/workbench/contrib/tasks/browser/task.contribution';
+import { TaskService } from 'vs/workbench/contrib/tasks/electron-browser/taskService';
+import { ITaskService } from 'vs/workbench/contrib/tasks/common/taskService';
+registerSingleton(ITaskService, TaskService, true);
 
 // Remote
+import 'vs/workbench/contrib/remote/common/remote.contribution';
 import 'vs/workbench/contrib/remote/electron-browser/remote.contribution';
 
 // Emmet

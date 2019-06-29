@@ -20,15 +20,7 @@ export interface IProgressService {
 	withProgress<R = any>(options: IProgressOptions | IProgressNotificationOptions | IProgressCompositeOptions, task: (progress: IProgress<IProgressStep>) => Promise<R>, onDidCancel?: () => void): Promise<R>;
 }
 
-export const ILocalProgressService = createDecorator<ILocalProgressService>('localProgressService');
-
-/**
- * A progress service that will report progress local to the UI piece triggered from. E.g.
- * if used from an action of a viewlet, the progress will be reported in that viewlet.
- */
-export interface ILocalProgressService {
-
-	_serviceBrand: ServiceIdentifier<ILocalProgressService>;
+export interface IProgressIndicator {
 
 	/**
 	 * Show progress customized with the provided flags.
@@ -74,6 +66,7 @@ export interface IProgressCompositeOptions extends IProgressOptions {
 export interface IProgressStep {
 	message?: string;
 	increment?: number;
+	total?: number;
 }
 
 export interface IProgressRunner {
@@ -81,6 +74,8 @@ export interface IProgressRunner {
 	worked(value: number): void;
 	done(): void;
 }
+
+export const emptyProgress: IProgress<IProgressStep> = { report: () => { } };
 
 export const emptyProgressRunner: IProgressRunner = Object.freeze({
 	total() { },
@@ -91,8 +86,6 @@ export const emptyProgressRunner: IProgressRunner = Object.freeze({
 export interface IProgress<T> {
 	report(item: T): void;
 }
-
-export const emptyProgress: IProgress<any> = Object.freeze({ report() { } });
 
 export class Progress<T> implements IProgress<T> {
 
@@ -131,7 +124,7 @@ export class LongRunningOperation extends Disposable {
 	private currentProgressTimeout: any;
 
 	constructor(
-		private localProgressService: ILocalProgressService
+		private progressIndicator: IProgressIndicator
 	) {
 		super();
 	}
@@ -146,7 +139,7 @@ export class LongRunningOperation extends Disposable {
 		const newOperationToken = new CancellationTokenSource();
 		this.currentProgressTimeout = setTimeout(() => {
 			if (newOperationId === this.currentOperationId) {
-				this.currentProgressRunner = this.localProgressService.show(true);
+				this.currentProgressRunner = this.progressIndicator.show(true);
 			}
 		}, progressDelay);
 
@@ -171,4 +164,14 @@ export class LongRunningOperation extends Disposable {
 			this.currentOperationDisposables.clear();
 		}
 	}
+}
+
+export const IEditorProgressService = createDecorator<IEditorProgressService>('editorProgressService');
+
+/**
+ * A progress service that will report progress local to the editor triggered from.
+ */
+export interface IEditorProgressService extends IProgressIndicator {
+
+	_serviceBrand: ServiceIdentifier<IEditorProgressService>;
 }

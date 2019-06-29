@@ -916,7 +916,9 @@ export const renameHandler = (accessor: ServicesAccessor) => {
 			if (success) {
 				const parentResource = stat.parent!.resource;
 				const targetResource = resources.joinPath(parentResource, value);
-				textFileService.move(stat.resource, targetResource).then(() => refreshIfSeparator(value, explorerService), onUnexpectedError);
+				if (stat.resource.toString() !== targetResource.toString()) {
+					textFileService.move(stat.resource, targetResource).then(() => refreshIfSeparator(value, explorerService), onUnexpectedError);
+				}
 			}
 			explorerService.setEditable(stat, null);
 		}
@@ -973,6 +975,27 @@ export const cutFileHandler = (accessor: ServicesAccessor) => {
 		pasteShouldMove = true;
 	}
 };
+
+export const DOWNLOAD_COMMAND_ID = 'explorer.download';
+const downloadFileHandler = (accessor: ServicesAccessor) => {
+	const listService = accessor.get(IListService);
+	if (!listService.lastFocusedList) {
+		return;
+	}
+	const explorerContext = getContext(listService.lastFocusedList);
+	const textFileService = accessor.get(ITextFileService);
+
+	if (explorerContext.stat) {
+		const stats = explorerContext.selection.length > 1 ? explorerContext.selection : [explorerContext.stat];
+		stats.forEach(async s => {
+			await textFileService.saveAs(s.resource, undefined, { availableFileSystems: [Schemas.file] });
+		});
+	}
+};
+CommandsRegistry.registerCommand({
+	id: DOWNLOAD_COMMAND_ID,
+	handler: downloadFileHandler
+});
 
 export const pasteFileHandler = (accessor: ServicesAccessor) => {
 	const listService = accessor.get(IListService);
