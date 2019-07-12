@@ -1,3 +1,7 @@
+# How to build and run on ppc64le
+
+* Check the `ppc64le_build.bash` and `ppc64le_run.bash` scripts.
+
 # Visual Studio Code - Open Source ("Code - OSS")
 
 <!-- [![Build Status](https://dev.azure.com/vscode/VSCode/_apis/build/status/VS%20Code?branchName=master)](https://aka.ms/vscode-builds) -->
