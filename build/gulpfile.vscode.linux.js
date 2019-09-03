@@ -23,7 +23,7 @@ const commit = util.getVersion(root);
 const linuxPackageRevision = Math.floor(new Date().getTime() / 1000);
 
 function getDebPackageArch(arch) {
-	return { x64: 'amd64', arm: 'armhf', arm64: 'arm64' }[arch];
+	return { x64: 'amd64', arm: 'armhf', arm64: "arm64", ppc64: "ppc64el" }[arch];
 }
 
 function prepareDebPackage(arch) {
@@ -117,7 +117,7 @@ function getRpmBuildPath(rpmArch) {
 }
 
 function getRpmPackageArch(arch) {
-	return { x64: 'x86_64', arm: 'armhf', arm64: 'arm64' }[arch];
+	return { x64: 'x86_64', arm: 'armhf', arm64: "arm64", ppc64: "ppc64le" }[arch];
 }
 
 function prepareRpmPackage(arch) {
@@ -252,6 +252,7 @@ const BUILD_TARGETS = [
 	{ arch: 'x64' },
 	{ arch: 'arm' },
 	{ arch: 'arm64' },
+	{ arch: 'ppc64' },
 ];
 
 BUILD_TARGETS.forEach((buildTarget) => {
