@@ -219,6 +219,7 @@ gulp.task(task.define('electron-ia32', task.series(util.rimraf('.build/electron'
 gulp.task(task.define('electron-x64', task.series(util.rimraf('.build/electron'), getElectron('x64'))));
 gulp.task(task.define('electron-arm', task.series(util.rimraf('.build/electron'), getElectron('armv7l'))));
 gulp.task(task.define('electron-arm64', task.series(util.rimraf('.build/electron'), getElectron('arm64'))));
+gulp.task(task.define('electron-ppc64', task.series(util.rimraf('.build/electron'), getElectron('ppc64'))));
 
 /**
  * Compute checksums for some files.
@@ -436,6 +437,7 @@ const BUILD_TARGETS = [
 	{ platform: 'linux', arch: 'x64' },
 	{ platform: 'linux', arch: 'arm' },
 	{ platform: 'linux', arch: 'arm64' },
+	{ platform: 'linux', arch: 'ppc64' },
 ];
 BUILD_TARGETS.forEach(buildTarget => {
 	const dashed = (str) => (str ? `-${str}` : ``);
