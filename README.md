@@ -1,3 +1,52 @@
+# How to build and run on ppc64le
+
+## Building a dpkg or RPM package
+
+To install VSCode on a Debian or Red Hat-based system, you can build and install
+a dpkg or RPM package:
+
+### Installing dependencies
+
+#### Fedora
+
+```
+$ sudo dnf install fakeroot g++ git libsecret-devel libxkbfile-devel make pkg-config python rpm-build unzip wget xz
+```
+
+#### Ubuntu
+
+```
+$ sudo apt-get install bsdmainutils build-essential curl fakeroot git libasound2 libfuse2 libgconf-2-4 libgtk-3-0 libgtk2.0-0 libnotify-bin libnss3 libsecret-1-dev libx11-dev libx11-xcb-dev libxkbfile-dev libxss1 libxtst6 pkg-config python-gtk2 unzip wget zip
+```
+
+### Building and installing package
+
+To build the appropriate package for your system, run:
+
+```
+$ make
+```
+
+To install the package, run:
+
+```
+$ sudo make install
+```
+
+You can also install the package manually. The RPM package will be in
+the `.build/linux/rpm/ppc64le` folder, while the deb package will be in
+the `.build/linux/deb/ppc64el/deb` folder.
+
+## Other options
+
+To build both dpkg and RPM packaging, run `make packaging`.
+
+To run without building the dpkg or RPM package, either run `make run` or run
+`make build` and then launch using the `./scripts/code.sh` script.
+
+Alternatively, you can use the `ppc64le_build.bash` and `ppc64le_run.bash`
+scripts.
+
 # Visual Studio Code - Open Source ("Code - OSS")
 
 <!-- [![Build Status](https://dev.azure.com/vscode/VSCode/_apis/build/status/VS%20Code?branchName=master)](https://aka.ms/vscode-builds) -->
