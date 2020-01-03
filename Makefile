@@ -5,12 +5,12 @@
 
 .DEFAULT_GOAL := all
 
-node_version := v10.16.0
+node_version := v12.4.0
 node_distro := linux-ppc64le
 node_name := node-$(node_version)-$(node_distro)
 node_url := https://nodejs.org/dist/$(node_version)/$(node_name).tar.xz
 
-electron_version := 4.2.4
+electron_version := 6.1.7
 electron_platform := linux-ppc64
 electron_name := electron-v$(electron_version)-$(electron_platform)
 electron_url := https://github.com/leo-lb/electron/releases/download/v$(electron_version)/$(electron_name).zip
