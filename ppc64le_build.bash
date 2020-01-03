@@ -10,7 +10,7 @@ echo
 
 set -eux
 
-VERSION=v10.16.0
+VERSION=v12.4.0
 DISTRO=linux-ppc64le
 
 wget "https://nodejs.org/dist/$VERSION/node-$VERSION-$DISTRO.tar.xz"
@@ -23,4 +23,4 @@ which electron-rebuild || sudo npm install -g electron-rebuild
 
 yarn install
 yarn compile
-electron-rebuild -v 4.2.4
+electron-rebuild -v 6.1.7

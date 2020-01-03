@@ -15,7 +15,7 @@ if [[ "$ELECTRON_BUILD_DIR" == "" ]]; then
   echo "#############################"
 	echo
 
-  VERSION="4.2.4"
+  VERSION="6.1.7"
 	PLATFORM="linux-ppc64"
 
 	if ! [[ -f "electron-v$VERSION-$PLATFORM.zip" ]]; then
